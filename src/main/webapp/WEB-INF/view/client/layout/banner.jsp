@@ -24,7 +24,7 @@
                                 <div class="carousel-item rounded">
                                     <img src="/client/img/hero-img-2.png" class="img-fluid w-100 h-100 rounded"
                                         alt="Second slide">
-                                    <a href="#" class="btn px-4 py-2 text-white rounded">Phụ kiện</a>
+                                    <a href="#" class="btn px-4 py-2 text-white rounded">Văn Phòng</a>
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselId"
