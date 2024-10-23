@@ -6,9 +6,9 @@
         <div class="d-flex align-items-center justify-content-between small">
             <div class="text-muted">Laptop Shop</div>
             <div>
-                <a href="https://hoidanit.vn/" target="_blank">Website</a>
+                <a href="https://www.facebook.com/profile.php?id=100082045898165" target="_blank">Facebook</a>
                 &middot;
-                <a href="https://www.youtube.com/@hoidanit" target="_blank">Youtube channel</a>
+                <a href="https://www.instagram.com/sonbui438?igsh=MW81Y3doODdsdTl3aw%3D%3D&utm_source=qr" target="_blank">Instagram</a>
             </div>
         </div>
     </div>

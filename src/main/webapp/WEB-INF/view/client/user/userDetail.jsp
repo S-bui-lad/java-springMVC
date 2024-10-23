@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="col-12 mx-auto">
                     <div class="d-flex justify-content-between">
-                        <h3>User Detail ${id}</h3>
+                        <h3>${fullName}</h3>
                     </div>
                     <hr/>
 
