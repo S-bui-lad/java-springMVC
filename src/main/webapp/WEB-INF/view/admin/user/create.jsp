@@ -72,7 +72,7 @@
                                     </c:set>
 
                                     <label class="form-label">Phone number:</label>
-                                    <form:input type="text" class="form-control ${not empty errorPhone ? 'is-invalid' : ''}" path="phone"/>
+                                    <form:input type="text" class="form-control ${not empty errorPhone ? 'is-invalid' : ''}" pattern="^(0|\+84)[3-9][0-9]{8}$" path="phone"/>
                                     ${errorPhone}
                                 </div>
                                 <div class="mb-3 col-12 col-md-6">
