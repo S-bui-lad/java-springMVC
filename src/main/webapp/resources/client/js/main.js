@@ -39,7 +39,7 @@
         }
     });
     $('.back-to-top').click(function () {
-        $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
+        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
         return false;
     });
 
@@ -144,35 +144,42 @@
     });
 
 
-
     // Product Quantity
     $('.quantity button').on('click', function () {
         let change = 0;
-
         var button = $(this);
-        var oldValue = button.parent().parent().find('input').val();
+        var input = button.parent().parent().find('input');
+        var oldValue = parseFloat(input.val());
+        var cartDetailId = input.attr("data-cart-detail-id");
+
         if (button.hasClass('btn-plus')) {
-            var newVal = parseFloat(oldValue) + 1;
-            change = 1;
+            $.get(`/api/get-quantity/${cartDetailId}`, function (stock) {
+                if (oldValue < stock) {
+                    var newVal = oldValue + 1;
+                    change = 1;
+                    input.val(newVal);
+                    updateCart(newVal, input, change);
+                } else {
+                    alert("Số lượng trong kho không đủ!");
+                }
+            });
         } else {
             if (oldValue > 1) {
-                var newVal = parseFloat(oldValue) - 1;
+                var newVal = oldValue - 1;
                 change = -1;
             } else {
                 newVal = 1;
             }
+            input.val(newVal);
+            updateCart(newVal, input, change);
         }
-        const input = button.parent().parent().find('input');
-        input.val(newVal);
+    });
 
-        //set form index
-        const index = input.attr("data-cart-detail-index")
+    function updateCart(newVal, input, change) {
+        const index = input.attr("data-cart-detail-index");
         const el = document.getElementById(`cartDetails${index}.quantity`);
         $(el).val(newVal);
 
-
-
-        //get price
         const price = input.attr("data-cart-detail-price");
         const id = input.attr("data-cart-detail-id");
 
@@ -182,31 +189,19 @@
             priceElement.text(formatCurrency(newPrice.toFixed(2)) + " đ");
         }
 
-        //update total cart price
         const totalPriceElement = $(`p[data-cart-total-price]`);
-
         if (totalPriceElement && totalPriceElement.length) {
             const currentTotal = totalPriceElement.first().attr("data-cart-total-price");
             let newTotal = +currentTotal;
-            if (change === 0) {
-                newTotal = +currentTotal;
-            } else {
-                newTotal = change * (+price) + (+currentTotal);
-            }
+            newTotal = change * (+price) + (+currentTotal);
 
-            //reset change
-            change = 0;
-
-            //update
-            totalPriceElement?.each(function (index, element) {
-                //update text
+            totalPriceElement.each(function (index, element) {
                 $(totalPriceElement[index]).text(formatCurrency(newTotal.toFixed(2)) + " đ");
-
-                //update data-attribute
                 $(totalPriceElement[index]).attr("data-cart-total-price", newTotal);
             });
         }
-    });
+    }
+
 
     function formatCurrency(value) {
         // Use the 'vi-VN' locale to format the number according to Vietnamese currency format
@@ -335,7 +330,7 @@
                 xhr.setRequestHeader(header, token);
             },
             type: "POST",
-            data: JSON.stringify({ quantity: 1, productId: productId }),
+            data: JSON.stringify({quantity: 1, productId: productId}),
             contentType: "application/json",
 
             success: function (response) {
@@ -381,7 +376,7 @@
                 xhr.setRequestHeader(header, token);
             },
             type: "POST",
-            data: JSON.stringify({ quantity: quantity, productId: productId }),
+            data: JSON.stringify({quantity: quantity, productId: productId}),
             contentType: "application/json",
 
             success: function (response) {

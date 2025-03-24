@@ -1,14 +1,12 @@
 package vn.hoidanit.laptopshop.controller.client;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import vn.hoidanit.laptopshop.service.ProductService;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 class CartRequest {
     private long quantity;
@@ -55,4 +53,9 @@ public class CartAPI {
         return ResponseEntity.ok().body(sum);
     }
 
+    @GetMapping("/api/get-quantity/{cartDetailId}")
+    public ResponseEntity<Long> getQuantity(@PathVariable Long cartDetailId) {
+        long stock = productService.fetchProductById(cartDetailId).get().getQuantity();
+        return ResponseEntity.ok(stock);
+    }
 }
