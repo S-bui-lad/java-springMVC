@@ -3,6 +3,7 @@ package vn.hoidanit.laptopshop.domain.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import vn.hoidanit.laptopshop.service.validator.validator.RegisterChecked;
+import vn.hoidanit.laptopshop.service.validator.validator.StrongPassword;
 
 @RegisterChecked
 public class RegisterDTO {
@@ -11,6 +12,7 @@ public class RegisterDTO {
     private String lastName;
     @Email(message = "Invalid Email", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
+    @StrongPassword
     private String password;
     private String confirmPassword;
 

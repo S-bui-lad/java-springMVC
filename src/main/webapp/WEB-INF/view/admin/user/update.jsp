@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,9 +49,13 @@
                                                 path="email" disabled="true" />
                                 </div>
                                 <div class="mb-3">
+                                    <c:set var="errorPhoneNumber">
+                                        <form:errors path="phone" cssClass="invalid-feedback"/>
+                                    </c:set>
+
                                     <label class="form-label">Phone number:</label>
-                                    <form:input type="text" class="form-control"
-                                                path="phone" />
+                                    <form:input type="text" class="form-control ${not empty errorPhoneNumber ? 'is-invalid' : ''}" pattern="^(0|\+84)[3-9][0-9]{8}$"
+                                                path="phone" />${errorPhoneNumber}
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Full Name:</label>
