@@ -1,10 +1,7 @@
 package vn.hoidanit.laptopshop.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 
 @Entity
@@ -17,7 +14,9 @@ public class Product {
 
     @NotNull
     @NotEmpty(message = "Product name must not be left blank")
+    @Pattern(regexp = "^[a-zA-Z0-9 ]+$", message = "Product name can only contain letters, numbers, and spaces")
     private String name;
+
 
     @NotNull
     @DecimalMin(value = "0", inclusive = false, message = "Price must be greater than 0")
@@ -26,12 +25,15 @@ public class Product {
 
     @NotNull
     @NotEmpty(message = "Detail Description must not be left blank")
+    @Size(max = 1000,message = "Detail Description must not exceed 1000 characters")
     @Column(columnDefinition = "MEDIUMTEXT")
     private String detailDesc;
 
     @NotNull
     @NotEmpty(message = "Short Description must not be left blank")
+    @Size(max = 255,message = "Short Description must not exceed 255 characters")
     private String shortDesc;
+    @DecimalMin(value = "0", inclusive = false, message = "Price must be greater than 0")
     private long quantity;
     private long sold;
     private String factory;
