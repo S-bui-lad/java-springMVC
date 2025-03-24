@@ -8,7 +8,7 @@
 
                 <head>
                     <meta charset="utf-8">
-                    <title> Thanh toán - Laptopshop</title>
+                    <title> Đặt hàng - Laptopshop</title>
                     <meta content="width=device-width, initial-scale=1.0" name="viewport">
                     <meta content="" name="keywords">
                     <meta content="" name="description">
@@ -55,7 +55,7 @@
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Thông tin thanh toán</li>
+                                        <li class="breadcrumb-item active" aria-current="page">Thông tin đặt hàng</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -151,8 +151,8 @@
                                         <div class="col-12 col-md-6">
                                             <div class="bg-light rounded">
                                                 <div class="p-4">
-                                                    <h1 class="display-6 mb-4">Thông Tin <span class="fw-normal">Thanh
-                                                            Toán</span>
+                                                    <h1 class="display-6 mb-4">Thông Tin <span class="fw-normal">Đặt
+                                                            Hàng</span>
                                                     </h1>
 
                                                     <div class="d-flex justify-content-between">
@@ -178,7 +178,7 @@
 
                                                 <button
                                                     class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4">
-                                                    Xác nhận thanh toán
+                                                    Xác nhận đặt hàng
                                                 </button>
 
                                             </div>
