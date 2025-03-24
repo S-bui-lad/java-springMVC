@@ -87,9 +87,11 @@
                                 </div>
                                 <div class="mb-3 col-12 col-md-6">
                                     <label class="form-label">Price:</label>
-                                    <form:input type="number"
+
+                                    <input type="text" name ="price" value = "${price}"
                                                 class="form-control ${not empty errorPrice ? 'is-invalid' : ''}"
-                                                path="price" />
+                                                id="price"
+                                                 />
                                         ${errorPrice}
                                 </div>
                                 <div class="mb-3 col-12">
@@ -161,6 +163,12 @@
         <jsp:include page="../layout/footer.jsp" />
     </div>
 </div>
+<script>
+document.querySelectorAll('#price').forEach(element => {
+        let price = parseInt(element.innerText.replace("đ", ""), 10);
+        element.innerText = price.toLocaleString("vi-VN") + "đ";
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src="/js/scripts.js"></script>

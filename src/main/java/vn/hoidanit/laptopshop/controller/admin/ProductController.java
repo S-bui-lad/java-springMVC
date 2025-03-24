@@ -92,6 +92,12 @@ public class ProductController {
     public String getUpdateProductPage(Model model, @PathVariable long id) {
         Optional<Product> currentProduct = this.productService.fetchProductById(id);
         model.addAttribute("newProduct", currentProduct.get());
+        Product product = currentProduct.get();
+
+        // Ép kiểu price từ double sang int
+        int formattedPrice = (int) product.getPrice();
+
+        model.addAttribute("price",formattedPrice);
         return "admin/product/update";
     }
 
