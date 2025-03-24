@@ -14,7 +14,7 @@ public class Product {
 
     @NotNull
     @NotEmpty(message = "Product name must not be left blank")
-    @Pattern(regexp = "^[a-zA-Z0-9 ]+$", message = "Product name can only contain letters, numbers, and spaces")
+    @Size(max = 100,message = "Name must not exceed 100 characters")
     private String name;
 
 

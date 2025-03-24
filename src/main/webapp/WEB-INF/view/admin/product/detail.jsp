@@ -49,7 +49,7 @@
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">ID: ${product.id}</li>
                                     <li class="list-group-item">Name: ${product.name}</li>
-                                    <li class="list-group-item">Price: ${product.price}</li>
+                                    <li class="list-group-item"><fmt:formatNumber type = "number" value ="${product.price}"/>đ</li>
                                 </ul>
                             </div>
                             <a href="/admin/product" class="btn btn-success mt-3">Back</a>
