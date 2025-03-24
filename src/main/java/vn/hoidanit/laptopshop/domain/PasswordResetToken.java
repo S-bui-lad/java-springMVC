@@ -2,6 +2,7 @@ package vn.hoidanit.laptopshop.domain;
 
 import jakarta.persistence.*;
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.service.validator.validator.StrongPassword;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
