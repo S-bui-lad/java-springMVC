@@ -129,17 +129,21 @@
                                                 <h5>Thông Tin Người Nhận
                                                 </h5>
                                                 <div class="row">
+                                                        <div class="col-12 form-group mb-3">
+                                                            <label>Tên người nhận</label>
+                                                            <input class="form-control" name="receiverName" id="receiverName" required oninput="validateName()" />
+                                                            <small id="nameError" style="color: red; display: none;">Tên không hợp lệ! Chỉ được chứa chữ cái và khoảng trắng không quá 50 ký tự.</small>
+                                                        </div>
                                                     <div class="col-12 form-group mb-3">
-                                                        <label>Tên người nhận</label>
-                                                        <input class="form-control" name="receiverName" required />
+                                                        <label>Địa chỉ</label>
+                                                        <input class="form-control" name="receiverAddress" id="receiverAddress" required oninput="validateForm()" />
+                                                        <small id="addressError" style="color: red; display: none;"></small>
                                                     </div>
-                                                    <div class="col-12 form-group mb-3">
-                                                        <label>Địa chỉ người nhận</label>
-                                                        <input class="form-control" name="receiverAddress" required />
-                                                    </div>
+
                                                     <div class="col-12 form-group mb-3">
                                                         <label>Số điện thoại</label>
-                                                        <input class="form-control" name="receiverPhone" pattern="^(0|\+84)[3-9][0-9]{8}$" required />
+                                                        <input class="form-control" name="receiverPhone" id="receiverPhone" required oninput="validateForm()" />
+                                                        <small id="phoneError" style="color: red; display: none;">Số điện thoại không hợp lệ!</small>
                                                     </div>
                                                     <div class="mt-4">
                                                         <i class="fas fa-arrow-left"></i>
@@ -176,8 +180,8 @@
                                                     </p>
                                                 </div>
 
-                                                <button
-                                                    class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4">
+                                                <button id="confirmOrderBtn" disabled
+                                                        class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4">
                                                     Xác nhận đặt hàng
                                                 </button>
 
@@ -207,6 +211,84 @@
                     <script src="/client/lib/waypoints/waypoints.min.js"></script>
                     <script src="/client/lib/lightbox/js/lightbox.min.js"></script>
                     <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
+                    <script>
+                        function validateForm() {
+                            let nameInput = document.getElementById("receiverName");
+                            let nameError = document.getElementById("nameError");
+                            let phoneInput = document.getElementById("receiverPhone");
+                            let phoneError = document.getElementById("phoneError");
+                            let addressInput = document.getElementById("receiverAddress");
+                            let addressError = document.getElementById("addressError");
+                            let confirmBtn = document.getElementById("confirmOrderBtn");
+
+                            if (!nameInput || !nameError || !phoneInput || !phoneError || !addressInput || !addressError || !confirmBtn) return;
+
+                            let nameRegex = /^[a-zA-ZÀ-Ỹà-ỹ\s]+$/; // Chỉ cho phép chữ cái và khoảng trắng
+                            let phoneRegex = /^(0|\+84)[3-9][0-9]{8}$/; // Kiểm tra số điện thoại Việt Nam
+
+                            let nameValue = nameInput.value.trim();
+                            let phoneValue = phoneInput.value.trim();
+                            let addressValue = addressInput.value.trim();
+
+                            let isNameValid = nameValue !== "" && nameRegex.test(nameValue) && nameValue.length <= 50;
+                            let isPhoneValid = phoneValue !== "" && phoneRegex.test(phoneValue);
+                            let isAddressValid = addressValue !== ""; // Chỉ cần kiểm tra không được bỏ trống
+
+                            // Kiểm tra tên
+                            if (!isNameValid) {
+                                nameError.style.display = "block";
+                                if (nameValue === "") {
+                                    nameError.innerText = "Vui lòng nhập tên người nhận!";
+                                } else if (nameValue.length > 50) {
+                                    nameError.innerText = "Tên không được dài quá 50 ký tự.";
+                                } else {
+                                    nameError.innerText = "Tên không hợp lệ! Chỉ được chứa chữ cái và khoảng trắng.";
+                                }
+                                nameInput.classList.add("is-invalid");
+                            } else {
+                                nameError.style.display = "none";
+                                nameInput.classList.remove("is-invalid");
+                            }
+
+                            // Kiểm tra số điện thoại
+                            if (!isPhoneValid) {
+                                phoneError.style.display = "block";
+                                phoneError.innerText = phoneValue === ""
+                                    ? "Vui lòng nhập số điện thoại!"
+                                    : "Số điện thoại không hợp lệ!";
+                                phoneInput.classList.add("is-invalid");
+                            } else {
+                                phoneError.style.display = "none";
+                                phoneInput.classList.remove("is-invalid");
+                            }
+
+                            // Kiểm tra địa chỉ
+                            if (!isAddressValid) {
+                                addressError.style.display = "block";
+                                addressError.innerText = "Vui lòng nhập địa chỉ!";
+                                addressInput.classList.add("is-invalid");
+                            } else {
+                                addressError.style.display = "none";
+                                addressInput.classList.remove("is-invalid");
+                            }
+
+                            // Bật/tắt nút xác nhận
+                            confirmBtn.disabled = !(isNameValid && isPhoneValid && isAddressValid);
+                        }
+
+                        // Kiểm tra khi submit form
+                        document.addEventListener("DOMContentLoaded", function () {
+                            let form = document.querySelector("form");
+                            if (form) {
+                                form.addEventListener("submit", function (event) {
+                                    validateForm();
+                                    if (document.getElementById("confirmOrderBtn").disabled) {
+                                        event.preventDefault(); // Ngăn không cho submit form nếu lỗi
+                                    }
+                                });
+                            }
+                        });
+                    </script>
 
                     <!-- Template Javascript -->
                     <script src="/client/js/main.js"></script>
