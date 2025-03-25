@@ -55,7 +55,8 @@ public class CartAPI {
 
     @GetMapping("/api/get-quantity/{cartDetailId}")
     public ResponseEntity<Long> getQuantity(@PathVariable Long cartDetailId) {
-        long stock = productService.fetchProductById(cartDetailId).get().getQuantity();
+        //long stock = productService.fetchProductById(cartDetailId).get().getQuantity();
+        long stock = productService.getProductByCartDetailId(cartDetailId).getQuantity();
         return ResponseEntity.ok(stock);
     }
 }
