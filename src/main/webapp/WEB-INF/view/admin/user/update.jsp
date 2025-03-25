@@ -63,7 +63,8 @@
                                                                                   path="fullName"
                                                                                   pattern="^[a-zA-ZÀ-ỹ ]+$"
                                                                                   title="Full Name must contain only letters and spaces, max 50 characters"
-                                                                                  oninput="validateFullName(this)" />
+                                                                                  oninput="validateFullName(this)"
+                                                                                  required ="required" />
                                                                        <span id="fullNameError" class="text-danger">${errorFullName}</span>
                                 </div>
                                 <div class="mb-3">
