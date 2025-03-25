@@ -4,31 +4,30 @@ import java.util.List;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+
 import vn.hoidanit.laptopshop.service.validator.validator.StrongPassword;
 
 
 @Entity
 @Table(name = "Users")
-
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotNull
     @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+
     private String email;
     @NotNull
     @StrongPassword
     private String password;
     @NotNull
     @NotEmpty(message = "Full Name must not be left blank")
-    @Size(max = 50, message = "Full Name must not exceed 50 characters")
-    @Pattern(regexp = "^[a-zA-ZÀ-ỹ\\s]+$", message = "Full Name must contain only letters")
     private String fullName;
     @NotEmpty(message = "Address must not be left blank")
     private String address;
     @NotEmpty(message = "Phone must not be left blank")
-    @Pattern(regexp = "^0+[0-9]{9}$", message = "Phone number must contain only number and exactly 10 digits ")
+
     private String phone;
     private String avatar;
 
