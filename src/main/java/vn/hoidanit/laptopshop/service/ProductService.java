@@ -114,6 +114,10 @@ public class ProductService {
         return this.productRepository.findById(id);
     }
 
+    public Product getProductByCartDetailId(long id){
+        return this.cartDetailRepository.findById(id).get().getProduct();
+    }
+
     public void deleteProduct(long id) {
         this.productRepository.deleteById(id);
     }
