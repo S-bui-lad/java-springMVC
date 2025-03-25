@@ -1,10 +1,12 @@
 package vn.hoidanit.laptopshop.controller.client;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,13 +60,13 @@ public class HomePageController {
 
     @PostMapping("/register")
     public String handleRegister(
-            @ModelAttribute("registerUser") @Valid RegisterDTO registerDTO,
+            @ModelAttribute("registerUser") RegisterDTO registerDTO,
             BindingResult bindingResult) {
 
         // validate
-        if (bindingResult.hasErrors()) {
+        /*if (bindingResult.hasErrors()) {
             return "client/auth/register";
-        }
+        }*/
 
         User user = this.userService.registerDTOtoUser(registerDTO);
 
@@ -76,6 +78,13 @@ public class HomePageController {
         this.userService.handleSaveUser(user);
         return "redirect:/login";
 
+    }
+
+    @GetMapping("/check-email")
+    public ResponseEntity<?> checkEmailExists(@RequestParam String email) {
+        User u = userService.findUserByEmail(email);
+        boolean exists = u != null;
+        return ResponseEntity.ok(Collections.singletonMap("exists", exists));
     }
 
     @GetMapping("/login")

@@ -62,6 +62,8 @@ public class UserService {
         user.setFullName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
         user.setEmail(registerDTO.getEmail());
         user.setPassword(registerDTO.getPassword());
+        user.setPhone("0123456789");
+        user.setAddress("?");
         return user;
     }
 

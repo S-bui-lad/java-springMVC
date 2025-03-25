@@ -5,9 +5,8 @@ import jakarta.validation.constraints.Size;
 import vn.hoidanit.laptopshop.service.validator.validator.RegisterChecked;
 import vn.hoidanit.laptopshop.service.validator.validator.StrongPassword;
 
-@RegisterChecked
 public class RegisterDTO {
-    @Size(min = 3, message = "First Name has at least 3 characters")
+    @Size(max = 50, message = "First Name must not exceed 50 characters")
     private String firstName;
     private String lastName;
     @Email(message = "Invalid Email", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
@@ -15,6 +14,8 @@ public class RegisterDTO {
     @StrongPassword
     private String password;
     private String confirmPassword;
+    private String phone;
+    private String address;
 
     public String getFirstName() {
         return firstName;
@@ -56,4 +57,19 @@ public class RegisterDTO {
         this.confirmPassword = confirmPassword;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }
