@@ -35,6 +35,15 @@
 
     <!-- Template Stylesheet -->
     <link href="/client/css/style.css" rel="stylesheet">
+
+    <style>
+        .input-no-edit {
+            background-color: transparent !important;
+            color: inherit;
+            cursor: default;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -110,7 +119,8 @@
                                     </button>
                                 </div>
                                 <input type="text"
-                                       class="form-control form-control-sm text-center border-0"
+                                       class="form-control form-control-sm text-center border-0 input-no-edit"
+                                       disabled
                                        value="${cartDetail.quantity}"
                                        data-cart-detail-id="${cartDetail.id}"
                                        data-cart-detail-price="${cartDetail.price}"
