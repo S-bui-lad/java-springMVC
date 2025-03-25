@@ -119,6 +119,10 @@ public class ProductService {
     }
 
     public void deleteProduct(long id) {
+        CartDetail cartDetail = cartDetailRepository.findByIdInCart(id);
+        if(cartDetail != null){
+            cartDetailRepository.deleteById(cartDetail.getId());
+        }
         this.productRepository.deleteById(id);
     }
 

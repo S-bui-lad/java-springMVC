@@ -32,9 +32,10 @@
                                     <div class="form-floating mb-3">
                                         <input type="hidden" name="${_csrf.parameterName}"
                                                value="${_csrf.token}" />
-                                        <input class="form-control" id="inputEmail" type="email" name="email"
+                                        <input class="form-control" id="inputEmail" type="email" name="email" required
                                                placeholder="name@example.com"/>
                                         <label for="inputEmail">Email address</label>
+                                        <span class="invalid-feedback d-inline-block" id="errorEmail">${message}</span>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                         <a class="small" href="/login">Return to login</a>
@@ -54,6 +55,5 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-<script src="js/scripts.js"></script>
 </body>
 </html>
