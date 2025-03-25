@@ -55,7 +55,7 @@
 
                                     <label class="form-label">Phone number:</label>
                                     <form:input type="text" class="form-control ${not empty errorPhoneNumber ? 'is-invalid' : ''}" pattern="^(0|\+84)[3-9][0-9]{8}$"
-                                                path="phone" />${errorPhoneNumber}
+                                                path="phone" required ="required"/>${errorPhoneNumber}
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Full Name:</label>
