@@ -40,7 +40,7 @@ public class OrderController {
     @GetMapping("/admin/order/delete/{id}")
     public String deleteOrder(Model model, @PathVariable long id) {
         this.orderService.deleteOrderById(id);
-        return "redirect:admin/order";
+        return "redirect:/admin/order";
     }
 
     @GetMapping("/admin/order/update/{id}")
