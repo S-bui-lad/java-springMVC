@@ -46,15 +46,18 @@
                         <div class="col-md-6 col-12 mx-auto">
                             <h3>Create a user</h3>
                             <hr/>
-                            <form:form method="post" action="/admin/user/create"
+                            <form:form method="post" id="userForm" action="/admin/user/create"
                                        modelAttribute="newUser" class="row" enctype="multipart/form-data">
                                 <div class="mb-3 col-12 col-md-6">
                                     <c:set var="errorEmail">
                                         <form:errors path="email" cssClass="invalid-feedback" />
                                     </c:set>
                                     <label class="form-label">Email:</label>
-                                    <form:input type="email" class="form-control ${not empty errorEmail ? 'is-invalid' : ''}" path="email"/>
-                                    ${errorEmail}
+                                   <form:input type="email" id="email" class="form-control ${not empty errorEmail ? 'is-invalid' : ''}" path="email"/>
+                                   <div class="invalid-feedback" id="emailError">
+                                       <form:errors path="email"/>
+                                   </div>
+
                                 </div>
                                 <div class="mb-3 col-12 col-md-6">
                                     <c:set var="errorPassword">
@@ -81,12 +84,16 @@
                                     </c:set>
 
                                     <label class="form-label">Full Name:</label>
-                                    <form:input type="text" class="form-control ${not empty errorFullName ? '' : ''}" path="fullName"/>
-                                    ${errorFullName}
+                                   <form:input type="text" class="form-control ${not empty errorFullName ? 'is-invalid' : ''}"
+                                              path="fullName"
+                                              pattern="^[a-zA-ZÀ-ỹ ]+$"
+                                              title="Full Name must contain only letters and spaces, max 50 characters"
+                                              oninput="validateFullName(this)" required="required"/>
+                                   <span id="fullNameError" class="text-danger">${errorFullName}</span>
                                 </div>
                                 <div class="mb-3 col-12">
                                     <label class="form-label">Address:</label>
-                                    <form:input type="text" class="form-control" path="address"/>
+                                    <form:input type="text" class="form-control" path="address" required="required"/>
                                 </div>
 
                                 <div class="mb-3 col-12 col-md-6">
@@ -106,7 +113,7 @@
                                          id="avatarPreview"/>
                                 </div>
                                 <div class="col-12 mb-5">
-                                    <button type="submit" class="btn btn-primary">Create</button>
+                                     <button type="submit" class="btn btn-primary" id="submitButton">Create</button>
                                 </div>
                             </form:form>
 
@@ -119,8 +126,61 @@
         <jsp:include page="../layout/footer.jsp"/>
     </div>
 </div>
+
+<script>
+function validateFullName(input) {
+    const maxLength = 50;
+    const errorSpan = document.getElementById("fullNameError");
+
+    if (input.value.length > maxLength) {
+        errorSpan.textContent = "Full Name không được vượt quá 50 ký tự.";
+    } else {
+        errorSpan.textContent = "";
+    }
+}
+
+</script>
+<script>
+document.getElementById("email").addEventListener("blur", function() {
+    let email = this.value.trim();
+    let emailError = document.getElementById("emailError");
+
+    if (!email.match(/^[A-Za-z0-9+_.-]+@(.+)$/)) {
+        emailError.textContent = "Email không hợp lệ";
+        this.classList.add("is-invalid");
+        return;
+    }
+
+    fetch("/check-email?email=" + encodeURIComponent(email))
+        .then(response => response.json())
+        .then(data => {
+            if (data.exists) {
+                emailError.textContent = "Email đã tồn tại";
+                this.classList.add("is-invalid");
+                this.dataset.invalid = "true"; // Đánh dấu email không hợp lệ
+            } else {
+                emailError.textContent = "";
+                this.classList.remove("is-invalid");
+                this.dataset.invalid = "false"; // Đánh dấu email hợp lệ
+            }
+        })
+        .catch(error => console.error("Lỗi:", error));
+});
+
+// Chặn submit nếu email bị trùng
+document.getElementById("userForm").addEventListener("submit", function(event) {
+    const emailInput = document.getElementById("email");
+
+    if (emailInput.dataset.invalid === "true") {
+        event.preventDefault(); // Chặn submit
+
+    }
+});
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
+
 <script src="/js/scripts.js"></script>
 
 </body>

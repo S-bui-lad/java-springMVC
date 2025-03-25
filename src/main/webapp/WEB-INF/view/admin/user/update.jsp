@@ -55,17 +55,21 @@
 
                                     <label class="form-label">Phone number:</label>
                                     <form:input type="text" class="form-control ${not empty errorPhoneNumber ? 'is-invalid' : ''}" pattern="^(0|\+84)[3-9][0-9]{8}$"
-                                                path="phone" />${errorPhoneNumber}
+                                                path="phone" required ="required"/>${errorPhoneNumber}
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Full Name:</label>
-                                    <form:input type="text" class="form-control"
-                                                path="fullName" />
+                                     <form:input type="text" class="form-control ${not empty errorFullName ? 'is-invalid' : ''}"
+                                                                                  path="fullName"
+                                                                                  pattern="^[a-zA-ZÀ-ỹ ]+$"
+                                                                                  title="Full Name must contain only letters and spaces, max 50 characters"
+                                                                                  oninput="validateFullName(this)" />
+                                                                       <span id="fullNameError" class="text-danger">${errorFullName}</span>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Address:</label>
-                                    <form:input type="text" class="form-control"
-                                                path="address" />
+                                   <form:input type="text" class="form-control" path="address" required="required" />
+
                                 </div>
 
                                 <button
@@ -82,6 +86,18 @@
         <jsp:include page="../layout/footer.jsp"/>
     </div>
 </div>
+<script>
+function validateFullName(input) {
+    const maxLength = 50;
+    const errorSpan = document.getElementById("fullNameError");
+
+    if (input.value.length > maxLength) {
+        errorSpan.textContent = "Full Name không được vượt quá 50 ký tự.";
+    } else {
+        errorSpan.textContent = "";
+    }
+}
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src="js/scripts.js"></script>
