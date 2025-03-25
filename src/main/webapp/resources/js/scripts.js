@@ -88,9 +88,9 @@ async function validateForm(event) {
     }
 
     // Validate Password Strength
-    let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,50}$/;
     if (!passwordRegex.test(password)) {
-        document.getElementById("errorPassword").textContent = "Password must be at least 8 characters, include 1 letter, 1 number & 1 special character";
+        document.getElementById("errorPassword").textContent = "Password must be between 6 - 50 characters, include 1 letter, 1 number & 1 special character";
         isValid = false;
     }
 
